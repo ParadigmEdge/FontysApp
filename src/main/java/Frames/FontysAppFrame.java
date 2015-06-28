@@ -38,6 +38,7 @@ public class FontysAppFrame extends javax.swing.JFrame {
     private ContactPersoon cp;
     private ShippingAddres sa;
     private Order order;
+    private OrderInvoice invoice;
     private TextMessage receive;
 
     public FontysAppFrame() {
@@ -351,36 +352,41 @@ public class FontysAppFrame extends javax.swing.JFrame {
         }
 
         String contactName = tfContactName.getText();
-//        String[] names = contactName.split(" ");
         cp = new ContactPersoon(contactName, tfContactPhone.getText());
         sa = new ShippingAddres(tfShippingStreet.getText(), tfShippingNumber.getText(), tfShippingPostcode.getText(), tfShippingPlace.getText());
         order = new Order(tfClient.getText(), cp, sa, "", workPerformed, parts);
-        System.out.println("Request created for client: " + order.getNameClient() + "...");
+        System.out.println("Request created for client: " + order.getNameClient() + " ...");
         String reparationDescription = tfComments.getText();
         if (reparationDescription.length() != 0 && reparationDescription != null) {
             order.setReparationDescription(reparationDescription);
-            System.out.println("Description found and added...");
+            System.out.println("Description found and added ...");
         }
-        System.out.println("Sending request...");
+        System.out.println("Sending request ...");
         Gson gson = new Gson();
         FontysAppFrame.sendMessage(clientOrderRequestQueue, gson.toJson(order), "-1");
-        System.out.println("Order request has succesfully been send!");
+        System.out.println("Send success ...");
 
         Queue orderResponse = new ActiveMQQueue(clientOrderReplyQueue);
         try {
-            //Wait for the total order
             receive = jmsMessageSender.receive(orderResponse);
             String result = receive.getText();
-            System.out.println("response received: " + result);
-            OrderInvoice invoice = gson.fromJson(result, OrderInvoice.class);
+            System.out.println("Response received: " + result + " ...");
+            invoice = gson.fromJson(result, OrderInvoice.class);
             System.out.println(invoice);
         } catch (JMSException e) {
             e.printStackTrace();
         }
 
-        //Close the connection
         ((ClassPathXmlApplicationContext) ctx).close();
-        System.out.println("connection closed");
+        System.out.println("Connection closed ...");
+        
+        try {
+            FactuurFrame factuurFrame = new FactuurFrame(invoice);
+            factuurFrame.setVisible(
+                    true);
+        } catch (Exception e) {
+        }
+
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

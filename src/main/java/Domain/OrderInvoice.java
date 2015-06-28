@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * OrderInvoice created by @author RY Jin on Jun 28, 2015
+ * the actual received data from broker
  */
 public class OrderInvoice {
 

@@ -1,27 +1,23 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Frames;
+
+import Domain.OrderInvoice;
 
 /**
  *
- * @author Leslie Aerts
+ * created by @author RY Jin on Jun 20, 2015
  */
-public class FactuurFrame extends javax.swing.JFrame
-{
+public class FactuurFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form FactuurFrame
      */
-    public FactuurFrame() //ClientOrderReply reply
+    public FactuurFrame(OrderInvoice invoice) //ClientOrderReply reply
     {
         initComponents();
 
-//        if (reply != null)
-//        {
-//            createForm(reply);
-//        }
+        if (invoice != null) {
+            createForm(invoice);
+        }
     }
 
     /**
@@ -330,26 +326,26 @@ public class FactuurFrame extends javax.swing.JFrame
     private javax.swing.JTextArea tfDescription;
     // End of variables declaration//GEN-END:variables
 
-    private void createForm() //ClientOrderReply reply
+    private void createForm(OrderInvoice invoice)
     {
-//        lbClientName.setText(reply.getNameClient());
-//
-//        lbStreet.setText(reply.getShippingAddress().getStreet());
-//        lbStreetNumber.setText(reply.getShippingAddress().getStreet());
-//        lbPostcode.setText(reply.getShippingAddress().getPostalCode());
-//
-//        tfDescription.setText(reply.getReparationDescription());
-//
-//        for (PartInfo part : reply.getPartInfo())
-//        {
-//            cbParts.addItem(part.getName());
-//        }
-//
-//        for (WorkPerformedInfo work : reply.getWorkPerformedInfo())
-//        {
-//            cbWork.addItem(work.getDescription());
-//        }
-//
-//        lbBankAccount.setText(reply.getBankAccount());
+        // calculate costs if needed, not needed with correct orderinvoice
+        lbClientName.setText(invoice.getClientName());
+
+        lbStreet.setText(invoice.getStreet());
+        lbStreetNumber.setText(invoice.getHouseNumber());
+        lbPostcode.setText(invoice.getZipcode());
+        lbPlace.setText(invoice.getShippingAddres());
+
+        tfDescription.setText(invoice.getDescription());
+
+        for (Object part : invoice.getParts()) {
+            cbParts.addItem(part);
+        }
+
+        for (Object work : invoice.getOpperations()) {
+            cbWork.addItem(work);
+        }
+
+//        lbBankAccount.setText(invoice.getBankAccount());
     }
 }
