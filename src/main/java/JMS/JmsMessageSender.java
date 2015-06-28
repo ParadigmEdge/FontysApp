@@ -37,7 +37,7 @@ public class JmsMessageSender {
 
     public TextMessage receive(final Destination dest) {
         while (true) {
-
+            
             //this.jmsTemplate.setReceiveTimeout(250);
             TextMessage receive = (TextMessage) this.jmsTemplate.receive(dest);
             if (receive == null) {

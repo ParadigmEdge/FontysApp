@@ -6,6 +6,7 @@ package Frames;
 
 import Domain.ContactPersoon;
 import Domain.Order;
+import Domain.OrderInvoice;
 import Domain.PartInfo;
 import Domain.ShippingAddres;
 import Domain.Parts;
@@ -20,6 +21,7 @@ import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.google.gson.Gson;
+import javax.jms.JMSException;
 
 /**
  *
@@ -32,6 +34,7 @@ public class FontysAppFrame extends javax.swing.JFrame {
     private static JmsMessageSender jmsMessageSender;
     final String clientOrderRequestQueue = "OrderRequestFontys";
     final String clientOrderReplyQueue = "OrderResponseFontys";
+
     private ContactPersoon cp;
     private ShippingAddres sa;
     private Order order;
@@ -324,13 +327,11 @@ public class FontysAppFrame extends javax.swing.JFrame {
 
     private void btAddPartActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btAddPartActionPerformed
     {//GEN-HEADEREND:event_btAddPartActionPerformed
-        String[] parts = new String[]
-        {
+        String[] parts = new String[]{
             Parts.HARD_DISK, Parts.MONITOR, Parts.NETWORK_CABLE, Parts.RAM
         };
         String newPartString = (String) JOptionPane.showInputDialog(null, "Voeg een onderdeel toe nodig voor deze reparatie:", null, JOptionPane.QUESTION_MESSAGE, null, parts, Parts.HARD_DISK);
-        if (newPartString.length() != 0 && newPartString != null)
-        {
+        if (newPartString.length() != 0 && newPartString != null) {
             cbParts.addItem(newPartString);
         }
     }//GEN-LAST:event_btAddPartActionPerformed
@@ -340,35 +341,47 @@ public class FontysAppFrame extends javax.swing.JFrame {
 
         ArrayList<WorkPerformedInfo> workPerformed = new ArrayList<WorkPerformedInfo>();
 
-        for (int i = 0; i < cbOperations.getItemCount(); i++)
-        {
+        for (int i = 0; i < cbOperations.getItemCount(); i++) {
             workPerformed.add(new WorkPerformedInfo((String) cbOperations.getItemAt(i)));
         }
 
         ArrayList<PartInfo> parts = new ArrayList<PartInfo>();
-        for (int i = 0; i < cbParts.getItemCount(); i++)
-        {
+        for (int i = 0; i < cbParts.getItemCount(); i++) {
             parts.add(new PartInfo((String) cbParts.getItemAt(i)));
         }
-        
+
         String contactName = tfContactName.getText();
-        String[] names = contactName.split(" ", 1);
-//        String[] names = new String[]
-//        {
-//            "Jan", "Piet"
-//        };
-        cp = new ContactPersoon(names[0], names[1], tfContactPhone.getText());
+//        String[] names = contactName.split(" ");
+        cp = new ContactPersoon(contactName, tfContactPhone.getText());
         sa = new ShippingAddres(tfShippingStreet.getText(), tfShippingNumber.getText(), tfShippingPostcode.getText(), tfShippingPlace.getText());
         order = new Order(tfClient.getText(), cp, sa, "", workPerformed, parts);
-        System.out.println("Request created..." + order.getNameClient());
+        System.out.println("Request created for client: " + order.getNameClient() + "...");
         String reparationDescription = tfComments.getText();
-        if (reparationDescription.length() != 0 && reparationDescription != null)
-        {
+        if (reparationDescription.length() != 0 && reparationDescription != null) {
             order.setReparationDescription(reparationDescription);
+            System.out.println("Description found and added...");
         }
-        System.out.println("Sending request");
+        System.out.println("Sending request...");
         Gson gson = new Gson();
-        this.sendMessage(clientOrderRequestQueue, gson.toJson(order), "-1");
+        FontysAppFrame.sendMessage(clientOrderRequestQueue, gson.toJson(order), "-1");
+        System.out.println("Order request has succesfully been send!");
+
+        Queue orderResponse = new ActiveMQQueue(clientOrderReplyQueue);
+        try {
+            //Wait for the total order
+            receive = jmsMessageSender.receive(orderResponse);
+            String result = receive.getText();
+            System.out.println("response received: " + result);
+            OrderInvoice invoice = gson.fromJson(result, OrderInvoice.class);
+            System.out.println(invoice);
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
+
+        //Close the connection
+        ((ClassPathXmlApplicationContext) ctx).close();
+        System.out.println("connection closed");
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btRemoveOperationActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btRemoveOperationActionPerformed
@@ -394,29 +407,23 @@ public class FontysAppFrame extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try
-        {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex)
-        {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FontysAppFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
-            {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
                 //new FontysAppFrame().setVisible(true);
             }
         });

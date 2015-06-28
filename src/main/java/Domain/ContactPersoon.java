@@ -6,12 +6,12 @@ package Domain;
 public class ContactPersoon {
 
     private String Naam;
-    private String AchterNaam;
+//    private String AchterNaam;
     private String Telefoon;
 
-    public ContactPersoon(String naam, String achternaam, String telefoon) {
+    public ContactPersoon(String naam, String telefoon) {
         this.Naam = naam;
-        this.AchterNaam = achternaam;
+//        this.AchterNaam = achternaam;
         this.Telefoon = telefoon;
     }
     
@@ -23,9 +23,9 @@ public class ContactPersoon {
         this.Naam = Naam;
     }
 
-    public void setAchterNaam(String AchterNaam) {
-        this.AchterNaam = AchterNaam;
-    }
+//    public void setAchterNaam(String AchterNaam) {
+//        this.AchterNaam = AchterNaam;
+//    }
 
     public void setTelefoon(String Telefoon) {
         this.Telefoon = Telefoon;
@@ -35,9 +35,9 @@ public class ContactPersoon {
         return this.Naam;
     }
 
-    public String getAchterNaam() {
-        return this.AchterNaam;
-    }
+//    public String getAchterNaam() {
+//        return this.AchterNaam;
+//    }
 
     public String getTelefoon() {
         return this.Telefoon;
