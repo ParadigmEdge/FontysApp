@@ -4,28 +4,46 @@
  */
 package Frames;
 
-import java.util.ArrayList;
+import Domain.ContactPersoon;
+import Domain.Order;
+import Domain.ShippingAddres;
+import Domain.Parts;
+import JMS.JmsMessageSender;
+import java.util.HashMap;
+import javax.jms.Queue;
+import javax.jms.TextMessage;
 import javax.swing.JOptionPane;
+import org.apache.activemq.command.ActiveMQQueue;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * @author Leslie Aerts
+ *
+ * created by @author RY Jin on Jun 20, 2015
  */
-public class FontysAppFrame extends javax.swing.JFrame
-{
+public class FontysAppFrame extends javax.swing.JFrame {
 
-//    ClientMessaging cTest;
+    private static HashMap<String, String> channels;
+    private static ApplicationContext ctx;
+    private static JmsMessageSender jmsMessageSender;
+    final String clientOrderRequestQueue = "OrderRequestFontys";
+    final String clientOrderReplyQueue = "OrderResponseFontys";
+    private ContactPersoon cp;
+    private ShippingAddres sa;
+    private Order order;
+    private TextMessage receive;
 
-    /**
-     * Creates new form FontysAppFrame
-     */
-    public FontysAppFrame(String factoryName, String requestQueue, String replyQueue)
-    {
+    public FontysAppFrame() {
         initComponents();
-        this.setTitle("FontysApp");
-        System.out.println("Creating client...");
-//        cTest = new ClientMessaging("FontysApp", factoryName, requestQueue, replyQueue);
-//        cTest.start();
-//        System.out.println("Done");
+        // Get message system
+        FontysAppFrame.ctx = new ClassPathXmlApplicationContext("app-context.xml");
+        FontysAppFrame.jmsMessageSender = (JmsMessageSender) FontysAppFrame.ctx.getBean("jmsMessageSender");
+        receive = null;
+    }
+
+    public static String sendMessage(String sendChannel, String message, String jmsMessageID) {
+        Queue queueSend = new ActiveMQQueue(sendChannel);
+        return jmsMessageSender.send(queueSend, message, jmsMessageID);
     }
 
     /**
@@ -289,23 +307,22 @@ public class FontysAppFrame extends javax.swing.JFrame
     {//GEN-HEADEREND:event_btAddOperationActionPerformed
         String newOperationString = JOptionPane.showInputDialog(null, "Geef een nieuwe werkverrichting op:");
 
-        if (newOperationString.length() != 0 && newOperationString != null)
-        {
+        if (newOperationString.length() != 0 && newOperationString != null) {
             cbOperations.addItem(newOperationString);
         }
     }//GEN-LAST:event_btAddOperationActionPerformed
 
     private void btAddPartActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btAddPartActionPerformed
     {//GEN-HEADEREND:event_btAddPartActionPerformed
-//        String[] parts = new String[]
-//        {
-//            Parts.HARD_DISK, Parts.MONITOR, Parts.NETWORK_CABLE, Parts.RAM
-//        };
-//        String newPartString = (String) JOptionPane.showInputDialog(null, "Voeg een onderdeel toe nodig voor deze reparatie:", null, JOptionPane.QUESTION_MESSAGE, null, parts, Parts.HARD_DISK);
-//        if (newPartString.length() != 0 && newPartString != null)
-//        {
-//            cbParts.addItem(newPartString);
-//        }
+        String[] parts = new String[]
+        {
+            Parts.HARD_DISK, Parts.MONITOR, Parts.NETWORK_CABLE, Parts.RAM
+        };
+        String newPartString = (String) JOptionPane.showInputDialog(null, "Voeg een onderdeel toe nodig voor deze reparatie:", null, JOptionPane.QUESTION_MESSAGE, null, parts, Parts.HARD_DISK);
+        if (newPartString.length() != 0 && newPartString != null)
+        {
+            cbParts.addItem(newPartString);
+        }
     }//GEN-LAST:event_btAddPartActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed

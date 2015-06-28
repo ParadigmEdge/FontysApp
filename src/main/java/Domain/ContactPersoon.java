@@ -1,19 +1,34 @@
 package Domain;
 
 /**
- * ContactPersoon 
- * created by @author RY Jin on Jun 20, 2015
+ * ContactPersoon created by @author RY Jin on Jun 20, 2015
  */
 public class ContactPersoon {
 
-    private final String Naam;
-    private final String AchterNaam;
-    private final String Telefoon;
+    private String Naam;
+    private String AchterNaam;
+    private String Telefoon;
 
     public ContactPersoon(String naam, String achternaam, String telefoon) {
         this.Naam = naam;
         this.AchterNaam = achternaam;
         this.Telefoon = telefoon;
+    }
+    
+    public ContactPersoon(){
+        
+    }
+
+    public void setNaam(String Naam) {
+        this.Naam = Naam;
+    }
+
+    public void setAchterNaam(String AchterNaam) {
+        this.AchterNaam = AchterNaam;
+    }
+
+    public void setTelefoon(String Telefoon) {
+        this.Telefoon = Telefoon;
     }
 
     public String getNaam() {

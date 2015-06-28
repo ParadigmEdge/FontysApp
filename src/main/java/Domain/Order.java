@@ -8,12 +8,12 @@ import java.awt.List;
  */
 public class Order {
 
-    private final String NameClient;
-    private final ContactPersoon ContactPersoon;
-    private final ShippingAddres ShippingAddres;
-    private final String ReparationDescription;
-    private final List Workperformed;
-    private final List Parts;
+    private String NameClient;
+    private ContactPersoon ContactPersoon;
+    private ShippingAddres ShippingAddres;
+    private String ReparationDescription;
+    private List Workperformed;
+    private List Parts;
 
     public Order(String nameclient, ContactPersoon contactpersoon, ShippingAddres shippingaddres, String reparationDescription, List workperformed, List parts) {
         this.NameClient = nameclient;
@@ -22,6 +22,34 @@ public class Order {
         this.ReparationDescription = reparationDescription;
         this.Workperformed = workperformed;
         this.Parts = parts;
+    }
+    
+    public Order(){
+        
+    }
+
+    public void setNameClient(String NameClient) {
+        this.NameClient = NameClient;
+    }
+
+    public void setContactPersoon(ContactPersoon ContactPersoon) {
+        this.ContactPersoon = ContactPersoon;
+    }
+
+    public void setShippingAddres(ShippingAddres ShippingAddres) {
+        this.ShippingAddres = ShippingAddres;
+    }
+
+    public void setReparationDescription(String ReparationDescription) {
+        this.ReparationDescription = ReparationDescription;
+    }
+
+    public void setWorkperformed(List Workperformed) {
+        this.Workperformed = Workperformed;
+    }
+
+    public void setParts(List Parts) {
+        this.Parts = Parts;
     }
 
     public String getNameClient() {
