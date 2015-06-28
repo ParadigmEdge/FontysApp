@@ -1,6 +1,7 @@
 package Domain;
 
 import java.awt.List;
+import java.util.ArrayList;
 
 /**
  * Order
@@ -12,10 +13,10 @@ public class Order {
     private ContactPersoon ContactPersoon;
     private ShippingAddres ShippingAddres;
     private String ReparationDescription;
-    private List Workperformed;
-    private List Parts;
+    private ArrayList Workperformed;
+    private ArrayList Parts;
 
-    public Order(String nameclient, ContactPersoon contactpersoon, ShippingAddres shippingaddres, String reparationDescription, List workperformed, List parts) {
+    public Order(String nameclient, ContactPersoon contactpersoon, ShippingAddres shippingaddres, String reparationDescription, ArrayList workperformed, ArrayList parts) {
         this.NameClient = nameclient;
         this.ContactPersoon = contactpersoon;
         this.ShippingAddres = shippingaddres;
@@ -44,11 +45,11 @@ public class Order {
         this.ReparationDescription = ReparationDescription;
     }
 
-    public void setWorkperformed(List Workperformed) {
+    public void setWorkperformed(ArrayList Workperformed) {
         this.Workperformed = Workperformed;
     }
 
-    public void setParts(List Parts) {
+    public void setParts(ArrayList Parts) {
         this.Parts = Parts;
     }
 
@@ -68,11 +69,11 @@ public class Order {
         return this.ReparationDescription;
     }
 
-    public List getWorkperformed() {
+    public ArrayList getWorkperformed() {
         return this.Workperformed;
     }
 
-    public List getParts() {
+    public ArrayList getParts() {
         return this.Parts;
     }
 }

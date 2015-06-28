@@ -6,9 +6,12 @@ package Frames;
 
 import Domain.ContactPersoon;
 import Domain.Order;
+import Domain.PartInfo;
 import Domain.ShippingAddres;
 import Domain.Parts;
+import Domain.WorkPerformedInfo;
 import JMS.JmsMessageSender;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.jms.Queue;
 import javax.jms.TextMessage;
@@ -16,6 +19,7 @@ import javax.swing.JOptionPane;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import com.google.gson.Gson;
 
 /**
  *
@@ -137,6 +141,12 @@ public class FontysAppFrame extends javax.swing.JFrame {
         jLabel6.setText("Straat");
 
         jLabel7.setText("Nummer");
+
+        tfShippingPostcode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfShippingPostcodeActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Postcode");
 
@@ -328,33 +338,37 @@ public class FontysAppFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
 
-//        ArrayList<WorkPerformedInfo> workPerformed = new ArrayList<WorkPerformedInfo>();
-//
-//        for (int i = 0; i < cbOperations.getItemCount(); i++)
-//        {
-//            workPerformed.add(new WorkPerformedInfo((String) cbOperations.getItemAt(i)));
-//        }
-//
-//        ArrayList<PartInfo> parts = new ArrayList<PartInfo>();
-//        for (int i = 0; i < cbParts.getItemCount(); i++)
-//        {
-//            parts.add(new PartInfo((String) cbParts.getItemAt(i)));
-//        }
-//        String contactName = tfContactName.getText();
-//        //String[] names = contactName.split(" ", 1);
-//        String[] names = new String[]
-//        {
-//            "Jan", "Piet"
-//        };
-//        ClientOrderRequest clientOrderRequest = new ClientOrderRequest(tfClient.getText(), names[0], names[1], tfContactPhone.getText(), tfShippingStreet.getText(), tfShippingNumber.getText(), tfShippingPlace.getText(), tfShippingPlace.getText(), workPerformed, parts);
-//        System.out.println("Request created..." + clientOrderRequest.getClientName());
-//        String comments = tfComments.getText();
-//        if (comments.length() != 0 && comments != null)
-//        {
-//            clientOrderRequest.setComments(comments);
-//        }
-//        System.out.println("Sending request");
-//        cTest.sendOrderRequest(clientOrderRequest);
+        ArrayList<WorkPerformedInfo> workPerformed = new ArrayList<WorkPerformedInfo>();
+
+        for (int i = 0; i < cbOperations.getItemCount(); i++)
+        {
+            workPerformed.add(new WorkPerformedInfo((String) cbOperations.getItemAt(i)));
+        }
+
+        ArrayList<PartInfo> parts = new ArrayList<PartInfo>();
+        for (int i = 0; i < cbParts.getItemCount(); i++)
+        {
+            parts.add(new PartInfo((String) cbParts.getItemAt(i)));
+        }
+        
+        String contactName = tfContactName.getText();
+        //String[] names = contactName.split(" ", 1);
+        String[] names = new String[]
+        {
+            "Jan", "Piet"
+        };
+        cp = new ContactPersoon(names[0], names[1], tfContactPhone.getText());
+        sa = new ShippingAddres(tfShippingStreet.getText(), tfShippingNumber.getText(), tfShippingPostcode.getText(), tfShippingPlace.getText());
+        order = new Order(tfClient.getText(), cp, sa, "", workPerformed, parts);
+        System.out.println("Request created..." + order.getNameClient());
+        String reparationDescription = tfComments.getText();
+        if (reparationDescription.length() != 0 && reparationDescription != null)
+        {
+            order.setReparationDescription(reparationDescription);
+        }
+        System.out.println("Sending request");
+        Gson gson = new Gson();
+        this.sendMessage(clientOrderRequestQueue, gson.toJson(order), "-1");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btRemoveOperationActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btRemoveOperationActionPerformed
@@ -366,6 +380,10 @@ public class FontysAppFrame extends javax.swing.JFrame {
     {//GEN-HEADEREND:event_btRemovePartActionPerformed
         cbParts.removeItem(cbParts.getSelectedItem());
     }//GEN-LAST:event_btRemovePartActionPerformed
+
+    private void tfShippingPostcodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfShippingPostcodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfShippingPostcodeActionPerformed
 //
 //    /**
 //     * @param args the command line arguments
