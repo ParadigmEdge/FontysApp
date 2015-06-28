@@ -364,6 +364,7 @@ public class FontysAppFrame extends javax.swing.JFrame {
         System.out.println("Sending request ...");
         Gson gson = new Gson();
         FontysAppFrame.sendMessage(clientOrderRequestQueue, gson.toJson(order), "-1");
+        System.out.println("json object: " + gson.toJson(order));
         System.out.println("Send success ...");
 
         Queue orderResponse = new ActiveMQQueue(clientOrderReplyQueue);
