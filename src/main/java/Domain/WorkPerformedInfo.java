@@ -7,7 +7,7 @@ package Domain;
 public class WorkPerformedInfo {
 
     private String description;
-    private Integer price;
+    private int price;
     
     public WorkPerformedInfo(String description) {
         this.description = description;

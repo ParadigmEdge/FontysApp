@@ -8,90 +8,70 @@ import java.util.ArrayList;
  */
 public class CorrectOrderInvoice {
 
-    private String NameClient;
-    private ShippingAddres ShippingAddres;
-    private String ReparationDescription;
-    private ArrayList<WorkPerformedInfo> Workperformed;
-    private BigDecimal TotalForWorkPerfomed;
-    private ArrayList<PartInfo> Parts;
-    private BigDecimal TotalForParts;
-    private String BankAccount;
+    private String nameClient;
+    private ShippingAddres shippingAddress;
+    private String reparationDescription;
+    private ArrayList<WorkPerformedInfo> workperformed;
+    private ArrayList<PartInfo> parts;
+    private String bankAccount;
 
     public CorrectOrderInvoice() {
     }
 
-    public CorrectOrderInvoice(String NameClient, ShippingAddres ShippingAddres, String ReparationDescription, ArrayList<WorkPerformedInfo> Workperformed, BigDecimal TotalForWorkPerfomed, ArrayList<PartInfo> Parts, BigDecimal TotalForParts, String BankAccount) {
-        this.NameClient = NameClient;
-        this.ShippingAddres = ShippingAddres;
-        this.ReparationDescription = ReparationDescription;
-        this.Workperformed = Workperformed;
-        this.TotalForWorkPerfomed = TotalForWorkPerfomed;
-        this.Parts = Parts;
-        this.TotalForParts = TotalForParts;
-        this.BankAccount = BankAccount;
+    public CorrectOrderInvoice(String NameClient, ShippingAddres ShippingAddres, String ReparationDescription, ArrayList<WorkPerformedInfo> Workperformed, ArrayList<PartInfo> Parts, String BankAccount) {
+        this.nameClient = NameClient;
+        this.shippingAddress = ShippingAddres;
+        this.reparationDescription = ReparationDescription;
+        this.workperformed = Workperformed;
+        this.parts = Parts;
+        this.bankAccount = BankAccount;
     }
 
     public String getNameClient() {
-        return NameClient;
+        return nameClient;
     }
 
     public ShippingAddres getShippingAddres() {
-        return ShippingAddres;
+        return shippingAddress;
     }
 
     public String getReparationDescription() {
-        return ReparationDescription;
+        return reparationDescription;
     }
 
     public ArrayList<WorkPerformedInfo> getWorkperformed() {
-        return Workperformed;
-    }
-
-    public BigDecimal getTotalForWorkPerfomed() {
-        return TotalForWorkPerfomed;
+        return workperformed;
     }
 
     public ArrayList<PartInfo> getParts() {
-        return Parts;
-    }
-
-    public BigDecimal getTotalForParts() {
-        return TotalForParts;
+        return parts;
     }
 
     public String getBankAccount() {
-        return BankAccount;
+        return bankAccount;
     }
 
     public void setNameClient(String NameClient) {
-        this.NameClient = NameClient;
+        this.nameClient = NameClient;
     }
 
     public void setShippingAddres(ShippingAddres ShippingAddres) {
-        this.ShippingAddres = ShippingAddres;
+        this.shippingAddress = ShippingAddres;
     }
 
     public void setReparationDescription(String ReparationDescription) {
-        this.ReparationDescription = ReparationDescription;
+        this.reparationDescription = ReparationDescription;
     }
 
     public void setWorkperformed(ArrayList<WorkPerformedInfo> Workperformed) {
-        this.Workperformed = Workperformed;
-    }
-
-    public void setTotalForWorkPerfomed(BigDecimal TotalForWorkPerfomed) {
-        this.TotalForWorkPerfomed = TotalForWorkPerfomed;
+        this.workperformed = Workperformed;
     }
 
     public void setParts(ArrayList<PartInfo> Parts) {
-        this.Parts = Parts;
-    }
-
-    public void setTotalForParts(BigDecimal TotalForParts) {
-        this.TotalForParts = TotalForParts;
+        this.parts = Parts;
     }
 
     public void setBankAccount(String BankAccount) {
-        this.BankAccount = BankAccount;
+        this.bankAccount = BankAccount;
     }
 }

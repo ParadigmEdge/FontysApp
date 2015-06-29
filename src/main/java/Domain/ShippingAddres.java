@@ -6,16 +6,16 @@ package Domain;
  */
 public class ShippingAddres {
 
-    private String Street;
-    private String Number;
-    private String PostalCode;
-    private String Place;
-
+    private String street;
+    private String number;
+    private String postalCode;
+    private String place
+;
     public ShippingAddres(String street, String number, String postalcode, String place) {
-        this.Street = street;
-        this.Number = number;
-        this.PostalCode = postalcode;
-        this.Place = place;
+        this.street = street;
+        this.number = number;
+        this.postalCode = postalcode;
+        this.place = place;
     }
     
     public ShippingAddres(){
@@ -23,34 +23,34 @@ public class ShippingAddres {
     }
 
     public void setStreet(String Street) {
-        this.Street = Street;
+        this.street = Street;
     }
 
     public void setNumber(String Number) {
-        this.Number = Number;
+        this.number = Number;
     }
 
     public void setPostalCode(String PostalCode) {
-        this.PostalCode = PostalCode;
+        this.postalCode = PostalCode;
     }
 
     public void setPlace(String Place) {
-        this.Place = Place;
+        this.place = Place;
     }
 
     public String getStreet() {
-        return this.Street;
+        return this.street;
     }
 
     public String getNumber() {
-        return this.Number;
+        return this.number;
     }
 
     public String getPostalCode() {
-        return this.PostalCode;
+        return this.postalCode;
     }
 
     public String getPlace() {
-        return this.Place;
+        return this.place;
     }
 }

@@ -340,15 +340,16 @@ public class FontysAppFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
 
-        ArrayList<WorkPerformedInfo> workPerformed = new ArrayList<WorkPerformedInfo>();
+        ArrayList<String> workPerformed = new ArrayList<>();
 
         for (int i = 0; i < cbOperations.getItemCount(); i++) {
-            workPerformed.add(new WorkPerformedInfo((String) cbOperations.getItemAt(i)));
+            workPerformed.add(cbOperations.getItemAt(i).toString());
+//            workPerformed.add(new WorkPerformedInfo((String) cbOperations.getItemAt(i)));
         }
 
-        ArrayList<PartInfo> parts = new ArrayList<PartInfo>();
+        ArrayList<String> parts = new ArrayList<>();
         for (int i = 0; i < cbParts.getItemCount(); i++) {
-            parts.add(new PartInfo((String) cbParts.getItemAt(i)));
+            parts.add(cbParts.getItemAt(i).toString());
         }
 
         String contactName = tfContactName.getText();

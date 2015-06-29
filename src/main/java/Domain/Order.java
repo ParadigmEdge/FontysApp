@@ -9,20 +9,20 @@ import java.util.ArrayList;
  */
 public class Order {
 
-    private String NameClient;
-    private ContactPersoon ContactPersoon;
-    private ShippingAddres ShippingAddres;
-    private String ReparationDescription;
-    private ArrayList Workperformed;
-    private ArrayList Parts;
+    private String client;
+    private ContactPersoon contactPersoon;
+    private ShippingAddres shipping;
+    private String comments;
+    private ArrayList<String> operations;
+    private ArrayList<String> parts;
 
     public Order(String nameclient, ContactPersoon contactpersoon, ShippingAddres shippingaddres, String reparationDescription, ArrayList workperformed, ArrayList parts) {
-        this.NameClient = nameclient;
-        this.ContactPersoon = contactpersoon;
-        this.ShippingAddres = shippingaddres;
-        this.ReparationDescription = reparationDescription;
-        this.Workperformed = workperformed;
-        this.Parts = parts;
+        this.client = nameclient;
+        this.contactPersoon = contactpersoon;
+        this.shipping = shippingaddres;
+        this.comments = reparationDescription;
+        this.operations = workperformed;
+        this.parts = parts;
     }
     
     public Order(){
@@ -30,50 +30,50 @@ public class Order {
     }
 
     public void setNameClient(String NameClient) {
-        this.NameClient = NameClient;
+        this.client = NameClient;
     }
 
     public void setContactPersoon(ContactPersoon ContactPersoon) {
-        this.ContactPersoon = ContactPersoon;
+        this.contactPersoon = ContactPersoon;
     }
 
     public void setShippingAddres(ShippingAddres ShippingAddres) {
-        this.ShippingAddres = ShippingAddres;
+        this.shipping = ShippingAddres;
     }
 
     public void setReparationDescription(String ReparationDescription) {
-        this.ReparationDescription = ReparationDescription;
+        this.comments = ReparationDescription;
     }
 
     public void setWorkperformed(ArrayList Workperformed) {
-        this.Workperformed = Workperformed;
+        this.operations = Workperformed;
     }
 
     public void setParts(ArrayList Parts) {
-        this.Parts = Parts;
+        this.parts = Parts;
     }
 
     public String getNameClient() {
-        return this.NameClient;
+        return this.client;
     }
 
     public ContactPersoon getContactPersoon() {
-        return this.ContactPersoon;
+        return this.contactPersoon;
     }
 
     public ShippingAddres getNameShippingAddres() {
-        return this.ShippingAddres;
+        return this.shipping;
     }
 
     public String getReparationDescription() {
-        return this.ReparationDescription;
+        return this.comments;
     }
 
     public ArrayList getWorkperformed() {
-        return this.Workperformed;
+        return this.operations;
     }
 
     public ArrayList getParts() {
-        return this.Parts;
+        return this.parts;
     }
 }

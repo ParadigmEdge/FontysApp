@@ -5,14 +5,14 @@ package Domain;
  */
 public class ContactPersoon {
 
-    private String Naam;
+    private String naam;
 //    private String AchterNaam;
-    private String Telefoon;
+    private String telefoon;
 
     public ContactPersoon(String naam, String telefoon) {
-        this.Naam = naam;
+        this.naam = naam;
 //        this.AchterNaam = achternaam;
-        this.Telefoon = telefoon;
+        this.telefoon = telefoon;
     }
     
     public ContactPersoon(){
@@ -20,7 +20,7 @@ public class ContactPersoon {
     }
 
     public void setNaam(String Naam) {
-        this.Naam = Naam;
+        this.naam = Naam;
     }
 
 //    public void setAchterNaam(String AchterNaam) {
@@ -28,11 +28,11 @@ public class ContactPersoon {
 //    }
 
     public void setTelefoon(String Telefoon) {
-        this.Telefoon = Telefoon;
+        this.telefoon = Telefoon;
     }
 
     public String getNaam() {
-        return this.Naam;
+        return this.naam;
     }
 
 //    public String getAchterNaam() {
@@ -40,6 +40,6 @@ public class ContactPersoon {
 //    }
 
     public String getTelefoon() {
-        return this.Telefoon;
+        return this.telefoon;
     }
 }
