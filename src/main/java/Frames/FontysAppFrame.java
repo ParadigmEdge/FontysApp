@@ -5,6 +5,7 @@
 package Frames;
 
 import Domain.ContactPersoon;
+import Domain.CorrectOrderInvoice;
 import Domain.Order;
 import Domain.OrderInvoice;
 import Domain.PartInfo;
@@ -38,7 +39,7 @@ public class FontysAppFrame extends javax.swing.JFrame {
     private ContactPersoon cp;
     private ShippingAddres sa;
     private Order order;
-    private OrderInvoice invoice;
+    private CorrectOrderInvoice invoice;
     private TextMessage receive;
 
     public FontysAppFrame() {
@@ -373,7 +374,7 @@ public class FontysAppFrame extends javax.swing.JFrame {
             receive = jmsMessageSender.receive(orderResponse);
             String result = receive.getText();
             System.out.println("Response received: " + result + " ...");
-            invoice = gson.fromJson(result, OrderInvoice.class);
+            invoice = gson.fromJson(result, CorrectOrderInvoice.class);
             System.out.println(invoice);
         } catch (JMSException e) {
             e.printStackTrace();

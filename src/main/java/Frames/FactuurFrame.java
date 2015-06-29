@@ -1,6 +1,10 @@
 package Frames;
 
+import Domain.CorrectOrderInvoice;
 import Domain.OrderInvoice;
+import Domain.PartInfo;
+import Domain.WorkPerformedInfo;
+import sun.org.mozilla.javascript.internal.ObjArray;
 
 /**
  *
@@ -11,7 +15,7 @@ public class FactuurFrame extends javax.swing.JFrame {
     /**
      * Creates new form FactuurFrame
      */
-    public FactuurFrame(OrderInvoice invoice) //ClientOrderReply reply
+    public FactuurFrame(CorrectOrderInvoice invoice) //ClientOrderReply reply
     {
         initComponents();
 
@@ -326,26 +330,35 @@ public class FactuurFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea tfDescription;
     // End of variables declaration//GEN-END:variables
 
-    private void createForm(OrderInvoice invoice)
-    {
+    private void createForm(CorrectOrderInvoice invoice) {
         // calculate costs if needed, not needed with correct orderinvoice
-        lbClientName.setText(invoice.getClientName());
+        int totalPartsCost = 0;
+        int totalWorkPerformedCost = 0;
+        int totalCost = 0;
 
-        lbStreet.setText(invoice.getStreet());
-        lbStreetNumber.setText(invoice.getHouseNumber());
-        lbPostcode.setText(invoice.getZipcode());
-        lbPlace.setText(invoice.getShippingAddres());
+        lbClientName.setText(invoice.getNameClient());
 
-        tfDescription.setText(invoice.getDescription());
+        lbStreet.setText(invoice.getShippingAddress().getStreet());
+        lbStreetNumber.setText(invoice.getShippingAddress().getNumber());
+        lbPostcode.setText(invoice.getShippingAddress().getPostalCode());
+        lbPlace.setText(invoice.getShippingAddress().getPlace());
 
-        for (Object part : invoice.getParts()) {
+        tfDescription.setText(invoice.getReparationDescription());
+
+        for (PartInfo part : invoice.getParts()) {
             cbParts.addItem(part);
+            totalPartsCost += part.getPrice();
         }
 
-        for (Object work : invoice.getOpperations()) {
+        for (WorkPerformedInfo work : invoice.getWorkPerformed()) {
             cbWork.addItem(work);
+            totalWorkPerformedCost += work.getPrice();
         }
 
-//        lbBankAccount.setText(invoice.getBankAccount());
+        lbBankAccount.setText(invoice.getBankAccount());
+        lbTotalCostParts.setText("€ "+(double)totalPartsCost/100.0 +"0"); 
+        lbTotalCostsWork.setText("€ "+(double)totalWorkPerformedCost/100.0+"0");
+        totalCost = totalPartsCost+totalWorkPerformedCost;
+        lbTotalCosts.setText("€ "+(double)totalCost/100.0+"0");
     }
 }

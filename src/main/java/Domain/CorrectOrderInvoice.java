@@ -8,30 +8,27 @@ import java.util.ArrayList;
  */
 public class CorrectOrderInvoice {
 
-    private String nameClient;
-    private ShippingAddres shippingAddress;
-    private String reparationDescription;
-    private ArrayList<WorkPerformedInfo> workperformed;
-    private ArrayList<PartInfo> parts;
-    private String bankAccount;
+    private final String nameClient;
+    private final ShippingAddres shippingAddress;
+    private final String reparationDescription;
+    private final ArrayList<WorkPerformedInfo> workPerformed;
+    private final ArrayList<PartInfo> parts;
+    private final String bankAccount;
 
-    public CorrectOrderInvoice() {
-    }
-
-    public CorrectOrderInvoice(String NameClient, ShippingAddres ShippingAddres, String ReparationDescription, ArrayList<WorkPerformedInfo> Workperformed, ArrayList<PartInfo> Parts, String BankAccount) {
-        this.nameClient = NameClient;
-        this.shippingAddress = ShippingAddres;
-        this.reparationDescription = ReparationDescription;
-        this.workperformed = Workperformed;
-        this.parts = Parts;
-        this.bankAccount = BankAccount;
+    public CorrectOrderInvoice(String nameClient, ShippingAddres shippingAddress, String reparationDescription, ArrayList<WorkPerformedInfo> workPerformed, ArrayList<PartInfo> parts, String bankAccount) {
+        this.nameClient = nameClient;
+        this.shippingAddress = shippingAddress;
+        this.reparationDescription = reparationDescription;
+        this.workPerformed = workPerformed;
+        this.parts = parts;
+        this.bankAccount = bankAccount;
     }
 
     public String getNameClient() {
         return nameClient;
     }
 
-    public ShippingAddres getShippingAddres() {
+    public ShippingAddres getShippingAddress() {
         return shippingAddress;
     }
 
@@ -39,8 +36,8 @@ public class CorrectOrderInvoice {
         return reparationDescription;
     }
 
-    public ArrayList<WorkPerformedInfo> getWorkperformed() {
-        return workperformed;
+    public ArrayList<WorkPerformedInfo> getWorkPerformed() {
+        return workPerformed;
     }
 
     public ArrayList<PartInfo> getParts() {
@@ -49,29 +46,5 @@ public class CorrectOrderInvoice {
 
     public String getBankAccount() {
         return bankAccount;
-    }
-
-    public void setNameClient(String NameClient) {
-        this.nameClient = NameClient;
-    }
-
-    public void setShippingAddres(ShippingAddres ShippingAddres) {
-        this.shippingAddress = ShippingAddres;
-    }
-
-    public void setReparationDescription(String ReparationDescription) {
-        this.reparationDescription = ReparationDescription;
-    }
-
-    public void setWorkperformed(ArrayList<WorkPerformedInfo> Workperformed) {
-        this.workperformed = Workperformed;
-    }
-
-    public void setParts(ArrayList<PartInfo> Parts) {
-        this.parts = Parts;
-    }
-
-    public void setBankAccount(String BankAccount) {
-        this.bankAccount = BankAccount;
     }
 }

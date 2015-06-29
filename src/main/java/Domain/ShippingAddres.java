@@ -1,25 +1,24 @@
 package Domain;
 
 /**
- * ShippingAddres 
- * created by @author RY Jin on Jun 20, 2015
+ * ShippingAddres created by @author RY Jin on Jun 20, 2015
  */
 public class ShippingAddres {
 
     private String street;
     private String number;
     private String postalCode;
-    private String place
-;
+    private String place;
+
     public ShippingAddres(String street, String number, String postalcode, String place) {
         this.street = street;
         this.number = number;
         this.postalCode = postalcode;
         this.place = place;
     }
-    
-    public ShippingAddres(){
-        
+
+    public ShippingAddres() {
+
     }
 
     public void setStreet(String Street) {
