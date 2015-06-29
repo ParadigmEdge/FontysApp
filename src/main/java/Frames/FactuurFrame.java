@@ -1,10 +1,8 @@
 package Frames;
 
 import Domain.CorrectOrderInvoice;
-import Domain.OrderInvoice;
 import Domain.PartInfo;
 import Domain.WorkPerformedInfo;
-import sun.org.mozilla.javascript.internal.ObjArray;
 
 /**
  *
@@ -14,9 +12,9 @@ public class FactuurFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form FactuurFrame
+     * @param invoice
      */
-    public FactuurFrame(CorrectOrderInvoice invoice) //ClientOrderReply reply
-    {
+    public FactuurFrame(CorrectOrderInvoice invoice) {
         initComponents();
 
         if (invoice != null) {
@@ -331,34 +329,35 @@ public class FactuurFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void createForm(CorrectOrderInvoice invoice) {
-        // calculate costs if needed, not needed with correct orderinvoice
         int totalPartsCost = 0;
         int totalWorkPerformedCost = 0;
         int totalCost = 0;
-
+        // set clientname
         lbClientName.setText(invoice.getNameClient());
-
+        // set adres
         lbStreet.setText(invoice.getShippingAddress().getStreet());
         lbStreetNumber.setText(invoice.getShippingAddress().getNumber());
         lbPostcode.setText(invoice.getShippingAddress().getPostalCode());
         lbPlace.setText(invoice.getShippingAddress().getPlace());
-
+        // set description
         tfDescription.setText(invoice.getReparationDescription());
-
+        // set parts
         for (PartInfo part : invoice.getParts()) {
             cbParts.addItem(part);
             totalPartsCost += part.getPrice();
         }
-
+        // set workperformed
         for (WorkPerformedInfo work : invoice.getWorkPerformed()) {
             cbWork.addItem(work);
             totalWorkPerformedCost += work.getPrice();
         }
-
+        // set bankaccount
         lbBankAccount.setText(invoice.getBankAccount());
-        lbTotalCostParts.setText("€ "+(double)totalPartsCost/100.0 +"0"); 
-        lbTotalCostsWork.setText("€ "+(double)totalWorkPerformedCost/100.0+"0");
-        totalCost = totalPartsCost+totalWorkPerformedCost;
-        lbTotalCosts.setText("€ "+(double)totalCost/100.0+"0");
+        // calculate total costs
+        totalCost = totalPartsCost + totalWorkPerformedCost;
+        // set costs
+        lbTotalCostParts.setText("€ " + (double) totalPartsCost / 100.0 + "0");
+        lbTotalCostsWork.setText("€ " + (double) totalWorkPerformedCost / 100.0 + "0");
+        lbTotalCosts.setText("€ " + (double) totalCost / 100.0 + "0");
     }
 }

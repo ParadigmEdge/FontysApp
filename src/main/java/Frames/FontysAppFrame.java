@@ -1,17 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Frames;
 
 import Domain.ContactPersoon;
 import Domain.CorrectOrderInvoice;
 import Domain.Order;
-import Domain.OrderInvoice;
-import Domain.PartInfo;
 import Domain.ShippingAddres;
 import Domain.Parts;
-import Domain.WorkPerformedInfo;
 import JMS.JmsMessageSender;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -340,12 +333,10 @@ public class FontysAppFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
-
         ArrayList<String> workPerformed = new ArrayList<>();
 
         for (int i = 0; i < cbOperations.getItemCount(); i++) {
             workPerformed.add(cbOperations.getItemAt(i).toString());
-//            workPerformed.add(new WorkPerformedInfo((String) cbOperations.getItemAt(i)));
         }
 
         ArrayList<String> parts = new ArrayList<>();
@@ -382,7 +373,7 @@ public class FontysAppFrame extends javax.swing.JFrame {
 
         ((ClassPathXmlApplicationContext) ctx).close();
         System.out.println("Connection closed ...");
-        
+
         try {
             FactuurFrame factuurFrame = new FactuurFrame(invoice);
             factuurFrame.setVisible(
